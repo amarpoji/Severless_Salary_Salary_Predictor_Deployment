@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Predictor</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f3; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        h2 { color: #333; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #0056b3; }
+        #result { margin-top: 25px; font-size: 1.8em; font-weight: bold; color: #28a745; min-height: 40px; }
+        .loading { color: #888; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🚀 Salary Predictor</h2>
+        <p>Enter years of experience:</p>
+        <input type="number" id="experience" step="0.1" placeholder="e.g. 5.5">
+        <button onclick="getSalary()">Predict Salary</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function getSalary() {
+            const exp = document.getElementById("experience").value;
+            const resultDiv = document.getElementById("result");
+            
+            if (!exp) {
+                resultDiv.innerHTML = "<span style='color:red; font-size:0.6em'>Please enter a number</span>";
+                return;
+            }
+
+            resultDiv.innerHTML = "<span class='loading'>Calculating...</span>";
+
+            try {
+                // We send the POST request to the current URL
+                const response = await fetch('.', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ years_experience: parseFloat(exp) })
+                });
+
+                const data = await response.json();
+                
+                if (data.predicted_salary) {
+                    resultDiv.innerText = "$" + data.predicted_salary.toLocaleString();
+                } else {
+                    resultDiv.innerText = "Error";
+                }
+            } catch (error) {
+                resultDiv.innerText = "Failed";
+            }
+        }
+    </script>
+</body>
+</html>
