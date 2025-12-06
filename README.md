@@ -11,7 +11,6 @@ This project serves a Linear Regression model via a FastAPI backend, containeriz
 ![AWS](https://img.shields.io/badge/AWS-Lambda%20%7C%20ECR%20%7C%20Gateway-orange)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 
----
 
 ## 🏗️ Architecture
 The project follows a cloud-native architecture:
