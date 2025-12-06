@@ -1,6 +1,6 @@
 
 
-````markdown
+
 # 💰 Serverless Salary Predictor
 
 A full-stack Machine Learning application deployed as a Serverless Microservice on AWS. 
